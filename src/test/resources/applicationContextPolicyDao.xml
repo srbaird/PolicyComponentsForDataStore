@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans default-lazy-init="false"
+	xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:jee="http://www.springframework.org/schema/jee" xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-3.0.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.1.xsd"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:cache="http://www.springframework.org/schema/cache">
+
+
+	<!-- ********************************************************************************************** 
+		Data access object: Datastore implementation 
+		********************************************************************************************** 
+	-->
+	<!-- Datastore DAO adapter -->	
+	<bean id="policyDSDaoAdapter" class="com.bac.policydsentitycomponent.access.PolicyComponentDAOAdapter"
+		 lazy-init="true">
+		 <constructor-arg ref="dataAccessor"/>
+		 <constructor-arg ref="dataTypeResolver"/>		 
+	</bean>	
+	
+	<!-- Datastore DAO -->
+	<bean id="dataAccessor" class="com.bac.policydsentitycomponent.access.DataAccessor"
+		init-method="init" lazy-init="true">
+		<property name="componentFactory" ref="policyEntityComponentFactory" />
+		<property name="dataTypeResolver" ref="dataTypeResolver" />
+		<property name="relationshipPolicy" ref="relationshipPolicy" />
+		<property name="nodeRelationshipResolver" ref="nodeRelationshipResolver" />
+	</bean>
+	<!-- End of Datastore DAO -->
+
+	<!-- Entity component factory. No default class is supplied so only Policy 
+		entities will be created -->
+	<bean id="policyEntityComponentFactory"
+		class="com.bac.policydsentitycomponent.entity.PolicyDSEntityComponentFactory">
+		<property name="beanDataTypeMap">
+			<map>
+				<entry key="#{dataTypeResolver.valueOf('ENTITY_COMPONENT_CLASS')}"
+					value="policyDSEntity" />
+			</map>
+		</property>
+		<property name="applicationContextProvider" ref="applicationContextProvider" />
+	</bean>
+	<!-- End of Entity component factory -->
+
+	<!-- Data Type Resolver -->
+	<bean id="applicationContextProvider"
+		class="com.bac.policydsentitycomponent.entity.ApplicationContextProviderImpl" />
+
+	<!-- Policy DS Entity -->
+	<bean id="policyDSEntity" class="com.bac.policydsentitycomponent.entity.PolicyDSEntity"
+		scope="prototype" />
+
+</beans>

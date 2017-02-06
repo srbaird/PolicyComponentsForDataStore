@@ -1,4 +1,4 @@
-# Policy Database on Google Datastore
+# Policy Database on [Google Datastore](https://cloud.google.com/datastore)
 
 
 This represents a port of a section of an existing application which used [Neo4j](https://neo4j.com/) as data persistence and an attempt to replicate the functionality of a graph database. The rewrite was part of an investigation into using [Google App Engine](https://cloud.google.com/appengine/) to host the application in place of a dedicated Java server instance.  
@@ -30,10 +30,10 @@ This might be represented in a graph database as a series of nodes where the rel
 
 The concept of a 'Policy' is to control the types of relationships permitted between data types in an application. The 'Datatype' is the fundamental description of a each component and a simple set of examples is [provided](https://github.com/srbaird/PolicyComponentsForDataStore/blob/master/src/main/java/com/bac/policydsentitycomponent/external/EntityComponentDataType.java). For this part of the application each of these Datatypes are wrapped in a component (which itself has its own particular Datatype) and relationships are then created between them. This metadata is then used in the body of the application to control which relationships are permitted.
 
-In the above example the policy dictates that an Image may be assigned a Tag and a Tag may be composed of Tags, in other words they can form a hierarchy. This then informs all decisions made in the larger application context.
-
  <p align="center">
 <img src="https://github.com/srbaird/PolicyComponentsForDataStore/blob/master/documents/Policy Graph Example.jpg" alt="Graph Example"  >
+
+In the above example the policy dictates that an Image may be assigned a Tag and a Tag may be composed of Tags, in other words they can form a hierarchy. This then informs all decisions made in the larger application context.
 
 ```
 ```

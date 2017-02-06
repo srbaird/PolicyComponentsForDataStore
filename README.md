@@ -42,8 +42,3 @@ ___
 
 
 
-<p align="center">
-<img src="https://github.com/srbaird/AccountServiceApp/blob/master/documents/datamodel.jpg" alt="Data model"  >
-</p>
-
-

@@ -17,14 +17,15 @@ import java.util.Set;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.bac.policydsentitycomponent.entity.EntityComponentRelationship;
 import com.bac.policydsentitycomponent.external.AbstractDSEntityComponent;
 import com.bac.policydsentitycomponent.external.ClassEntityComponent;
+import com.bac.policydsentitycomponent.external.DSNodeProperty;
 import com.bac.policydsentitycomponent.external.DataType;
 import com.bac.policydsentitycomponent.external.DataTypeResolver;
 import com.bac.policydsentitycomponent.external.EntityComponent;
 import com.bac.policydsentitycomponent.external.EntityComponentDAO;
 import com.bac.policydsentitycomponent.external.EntityComponentFactory;
-import com.bac.policydsentitycomponent.external.DSNodeProperty;
 import com.bac.policydsentitycomponent.external.NodeRelationship;
 import com.bac.policydsentitycomponent.external.NodeRelationshipResolver;
 import com.bac.policydsentitycomponent.external.RelationshipPolicy;
@@ -248,12 +249,18 @@ public abstract class AbstractDataAccessor<T extends AbstractDSEntityComponent<T
 		if (entityComponent == null) {
 			throw new IllegalArgumentException(NULL_COMPONENT_ARGUMENT);
 		}
-		if (entityComponent.getRelationshipId() == null) {
+		if (!(entityComponent instanceof EntityComponentRelationship)) {
 			throw new IllegalArgumentException(NO_COMPONENT_RELATIONSHIP);
 		}
+		// The component as a relationship
+		final EntityComponentRelationship relationship = (EntityComponentRelationship) entityComponent;
+		if (relationship.getRelationshipId() == null) {
+			throw new IllegalArgumentException(NO_COMPONENT_RELATIONSHIP);
+		}
+		
 		setUserNameSpace();
 		@SuppressWarnings("unchecked")
-		Key<T> relationshipId = (Key<T>) entityComponent.getRelationshipId();
+		Key<T> relationshipId = (Key<T>) relationship.getRelationshipId();
 		LoadResult<T> relationshipResult = getOfy().load().key(relationshipId);
 		if (relationshipResult == null) {
 			logger.warn("Relationship id load resolves to null");
@@ -265,7 +272,7 @@ public abstract class AbstractDataAccessor<T extends AbstractDSEntityComponent<T
 		T assigneeComponent;
 		T assignmentComponent;
 
-		if (entityComponent.isReverseRelationship()) {
+		if (relationship.isReverseRelationship()) {
 			// Reverse the order
 			assigneeComponent = _loadEntityComponent(entityComponent);
 			assignmentComponent = relationshipResult.now();

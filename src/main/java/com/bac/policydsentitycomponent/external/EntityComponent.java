@@ -16,11 +16,11 @@ public interface EntityComponent {
 
     Long getTimestamp();
 
-    Object getRelationshipId();
+//    Object getRelationshipId();
 
-    NodeRelationship getRelationshipType();
+//    NodeRelationship getRelationshipType();
 
-    boolean isReverseRelationship();
+//    boolean isReverseRelationship();
 
     DataType getDataType();
 

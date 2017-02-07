@@ -17,6 +17,7 @@ import java.util.Set;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.bac.policydsentitycomponent.entity.EntityComponentRelationship;
 import com.googlecode.objectify.Key;
 import com.googlecode.objectify.Ref;
 import com.googlecode.objectify.annotation.Id;
@@ -34,7 +35,7 @@ import com.googlecode.objectify.condition.IfZero;
  */
 @SuppressWarnings("serial")
 public abstract class AbstractDSEntityComponent<T extends AbstractDSEntityComponent<T>>
-		implements EntityComponent, DSEntityComponent<T>, Serializable {
+		implements EntityComponent, EntityComponentRelationship, DSEntityComponent<T>, Serializable {
 	//
 	// Objectify persists fields and only fields.
 	//

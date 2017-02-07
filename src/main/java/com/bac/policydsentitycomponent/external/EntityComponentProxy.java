@@ -61,14 +61,6 @@ public abstract class EntityComponentProxy implements EntityComponent, Serializa
         return delegate.getId();
     }
 
-    @Override
-    public Object getRelationshipId() {
-        if (delegate == null) {
-            return null;
-        }
-        return delegate.getRelationshipId();
-    }
-
     @XmlAnyElement
     @Override
     public DataType getDataType() {
@@ -84,24 +76,6 @@ public abstract class EntityComponentProxy implements EntityComponent, Serializa
             return;
         }
         delegate.setDataType(type);
-    }
-
-    @XmlAnyElement
-    @Override
-    public NodeRelationship getRelationshipType() {
-        if (delegate == null) {
-            return null;
-        }
-        return delegate.getRelationshipType();
-    }
-
-    @Override
-    public boolean isReverseRelationship() {
-        if (delegate == null) {
-            return false;
-        }
-        logger.trace("Delegate is  '{}' and reverse = {} ", delegate.getClass(), delegate.isReverseRelationship());
-        return delegate.isReverseRelationship();
     }
 
     @Override

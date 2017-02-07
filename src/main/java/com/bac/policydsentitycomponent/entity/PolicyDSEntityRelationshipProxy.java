@@ -18,7 +18,7 @@ import com.bac.policydsentitycomponent.external.NodeRelationship;
  *
  * @author user0001
  */
-public class PolicyDSEntityRelationshipProxy implements ClassEntityComponent, Serializable {
+public class PolicyDSEntityRelationshipProxy implements ClassEntityComponent, Serializable, EntityComponentRelationship {
 
     private static final long serialVersionUID = 438680123286556L;
 
@@ -42,6 +42,9 @@ public class PolicyDSEntityRelationshipProxy implements ClassEntityComponent, Se
         return delegate;
     }
 
+    /* (non-Javadoc)
+	 * @see com.bac.policydsentitycomponent.entity.EntityComponentRelationship#isReverseRelationship()
+	 */
     @Override
     public boolean isReverseRelationship() {
         return reverseRelationship;
@@ -51,6 +54,9 @@ public class PolicyDSEntityRelationshipProxy implements ClassEntityComponent, Se
         this.reverseRelationship = isReverseRelationship;
     }
 
+    /* (non-Javadoc)
+	 * @see com.bac.policydsentitycomponent.entity.EntityComponentRelationship#getRelationshipId()
+	 */
     @Override
     public Object getRelationshipId() {
         return relationshipId;
@@ -60,6 +66,9 @@ public class PolicyDSEntityRelationshipProxy implements ClassEntityComponent, Se
         this.relationshipId = relationshipId;
     }
 
+    /* (non-Javadoc)
+	 * @see com.bac.policydsentitycomponent.entity.EntityComponentRelationship#getRelationshipType()
+	 */
     @Override
     public NodeRelationship getRelationshipType() {
         return relationshipType;

@@ -1,9 +1,9 @@
 # Policy Database on [Google Datastore](https://cloud.google.com/datastore)
 
 
-This represents a port of a section of an existing application which used [Neo4j](https://neo4j.com/) as data persistence and an attempt to replicate the functionality of a graph database. The rewrite was part of an investigation into using [Google App Engine](https://cloud.google.com/appengine/) to host the application in place of a dedicated Java server instance.  
+This represents a port of a section of an existing application which used [Neo4j](https://neo4j.com/) as data persistence and an attempt to replicate the functionality of a graph database. The rewrite was part of an investigation into using [Google App Engine](https://cloud.google.com/appengine/) to host the application in place of a dedicated Java server instance. It is hosted here as an Eclipse project using Maven so it can be imported and verified by running the [tests](https://github.com/srbaird/PolicyComponentsForDataStore/blob/master/src/test/java/com/bac/policydsentitycomponent/entity/AllTests.java).
 
-The section represented here is the ability to dynamically specify an application level schema on top of a [NoSQL](https://en.wikipedia.org/wiki/NoSQL) instance. 
+The example represented here is the ability to dynamically specify an application level schema on top of a [NoSQL](https://en.wikipedia.org/wiki/NoSQL) instance. 
 
 ___
 
@@ -35,8 +35,23 @@ The concept of a 'Policy' is to control the types of relationships permitted bet
 
 In the above example the policy dictates that an Image may be assigned a Tag and a Tag may be composed of Tags, in other words they can form a hierarchy. This then informs all decisions made in the larger application context.
 
-```
-```
+## Implementation
+
+#### Project
+
+Most of the classes originate from other projects but are included here to enable packaging. All classes in the [external](https://github.com/srbaird/PolicyComponentsForDataStore/tree/master/src/main/java/com/bac/policydsentitycomponent/external) package have been sourced from a larger project. 
+
+#### Data Access
+
+The [data accessor](https://github.com/srbaird/PolicyComponentsForDataStore/blob/master/src/main/java/com/bac/policydsentitycomponent/external/PolicyComponentDAO.java) requirements for this example are a subset of a larger project functionality and are implemented as an adapter. There is no requirement to deal with issues such as reverse relationships, truncating recursive relationships and cascading deletes which are handled in the the main [class](https://github.com/srbaird/PolicyComponentsForDataStore/blob/master/src/main/java/com/bac/policydsentitycomponent/access/AbstractDataAccessor.java).
+
+#### Nodes
+
+Data access is implemented using [Objectify](https://github.com/objectify/objectify). Nodes store their relationships as collections of references to other nodes and these are resolved with the [@Load](https://github.com/objectify/objectify/wiki/Entities) annotation.
+
+#### Java
+
+Initially written in Java 7 and subsequently enhanced to use some Java 8 features.
 
 ___
 

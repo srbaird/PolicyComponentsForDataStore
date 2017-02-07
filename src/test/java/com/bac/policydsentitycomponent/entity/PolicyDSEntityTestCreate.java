@@ -106,8 +106,9 @@ public class PolicyDSEntityTestCreate extends AbstractEntityTest {
 		assertTrue(EntityComponents.equals(createdNodeEntityComponent, resultChildComponent));
 		assertEquals(createdNodeEntityComponent.getId(), resultChildComponent.getId());
 		//
-		assertFalse(resultChildComponent.isReverseRelationship());
-		NodeRelationship resultRelationshipType = resultChildComponent.getRelationshipType();
+		final PolicyDSEntityRelationshipProxy resultRelationship = (PolicyDSEntityRelationshipProxy) resultChildComponent;
+		assertFalse(resultRelationship.isReverseRelationship());
+		NodeRelationship resultRelationshipType = resultRelationship.getRelationshipType();
 		assertEquals(expRelationshipType, resultRelationshipType);
 	}
 
@@ -146,8 +147,9 @@ public class PolicyDSEntityTestCreate extends AbstractEntityTest {
 		EntityComponent resultChildComponent = assignments.get(INDEX_OF_FIRST_COMPONENT);
 		assertEquals(createdNodeEntityComponent.getId(), resultChildComponent.getId());
 		//
-		assertFalse(resultChildComponent.isReverseRelationship());
-		NodeRelationship resultRelationshipType = resultChildComponent.getRelationshipType();
+		final PolicyDSEntityRelationshipProxy resultRelationship = (PolicyDSEntityRelationshipProxy) resultChildComponent;
+		assertFalse(resultRelationship.isReverseRelationship());
+		NodeRelationship resultRelationshipType = resultRelationship.getRelationshipType();
 		assertEquals(expRelationshipType, resultRelationshipType);
 	}
 
